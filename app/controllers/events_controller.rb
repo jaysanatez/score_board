@@ -64,16 +64,15 @@ class EventsController < ApplicationController
 	    if school_admin?(params[:school_id])
 	    	d = params[:event]
 	    	osi = d[:opp_season_id]
-	      	if osi == null || osi != ""
-	      		```
+	      	if osi == nil || osi == ""
 	      		b = d[:home] == "1"
 	      		home_id = if b then params[:season_id] else 0 end
 	      		away_id = if b then 0 else params[:season_id] end
 	      		dt = DateTime.new(d["date(1i)"].to_i, d["date(2i)"].to_i, d["date(3i)"].to_i, d["date(4i)"].to_i, d["date(5i)"].to_i, 0)
 	      		s = School.find(params[:school_id])
 	      		dt = ActiveSupport::TimeZone.new(s.tz_name).local_to_utc(dt)
-	      		ScheduleEvent.create(:home_season_id => home_id, :away_season_id => away_id, :home_score => 0, :away_score => 0, :status => 0, :period => 0, :date => dt)
-	      		```
+	      		gn = d[:guest_name]
+	      		ScheduleEvent.create(:home_season_id => home_id, :away_season_id => away_id, :home_score => 0, :away_score => 0, :status => 0, :period => 0, :date => dt, :guest_name => gn)
 	      	else
 	      		b = d[:home] == "1"
 	      		home_id = if b then params[:season_id] else osi end

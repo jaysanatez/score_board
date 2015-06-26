@@ -66,8 +66,8 @@
 					<%= e.label :opponent %>
 					<%= e.collection_select :opp_season_id, @possible_opponents, :id, :school_name, { :prompt => true }, { :class => 'form-select' } %> 
 
-					<%= e.label :guest_team, "Or Enter Manually", class: "guest-name" %>
-					<%= e.text_field :guest_team %><br/>
+					<%= e.label :guest_name, "Or Enter Manually", class: "guest-name" %>
+					<%= e.text_field :guest_name %><br/>
 
 					<%= e.label :home %>
 					<%= e.check_box :home, { :checked => true, :style => 'margin-bottom: 10px;' } %> <br/>

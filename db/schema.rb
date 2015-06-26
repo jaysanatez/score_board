@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150624232057) do
+ActiveRecord::Schema.define(version: 20150626225720) do
 
   create_table "event_revisions", force: :cascade do |t|
     t.integer  "schedule_event_id", limit: 4
@@ -33,8 +33,9 @@ ActiveRecord::Schema.define(version: 20150624232057) do
     t.integer  "status",         limit: 4
     t.integer  "period",         limit: 4
     t.datetime "date"
-    t.datetime "created_at",               null: false
-    t.datetime "updated_at",               null: false
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+    t.string   "guest_name",     limit: 255
   end
 
   create_table "schools", force: :cascade do |t|
