@@ -20,10 +20,20 @@
 			<div class="team-box">
 				<div class="team-pic">
 					<div class="img-box">
-						<img src="<%= asset_path s.away_season.school.picture %>"/>
+						<% if s.away_season_id != 0 %>
+							<img src="<%= asset_path s.away_season.school.picture %>"/>
+						<% else %>
+							<img src="<%= asset_path "guest.png" %>"/>
+						<% end %>
 					</div>
 				</div>
-				<div class="away-display team-info" data-display="<%= @away_display_data[s.id] %>"><%= s.away_season.school.name %></div>
+				<div class="away-display team-info" data-display="<%= @away_display_data[s.id] %>">
+					<% if s.away_season_id != 0 %>
+						<%= s.away_season.school.name %>
+					<% else %>
+						<%= s.guest_name %>
+					<% end %>
+				</div>
 				<div class="team-score"><%= if s.status == 0 then "-" else s.away_score end %></div>
 				<div class="winner">
 					<% if @away_winners[s.id] %>
@@ -37,10 +47,20 @@
 			<div class="team-box">
 				<div class="team-pic">
 					<div class="img-box">
-						<img src="<%= asset_path s.home_season.school.picture %>"/>
+						<% if s.home_season_id != 0 %>
+							<img src="<%= asset_path s.home_season.school.picture %>"/>
+						<% else %>
+							<img src="<%= asset_path "guest.png" %>"/>
+						<% end %>
 					</div>
 				</div>
-				<div class="home-display team-info" data-display="<%= @home_display_data[s.id] %>"><%= s.home_season.school.name %></div>
+				<div class="home-display team-info" data-display="<%= @home_display_data[s.id] %>">
+					<% if s.home_season_id != 0 %>
+						<%= s.home_season.school.name %>
+					<% else %>
+						<%= s.guest_name %>
+					<% end %>
+				</div>
 				<div class="team-score"><%= if s.status == 0 then "-" else s.home_score end %></div>
 				<div class="winner">
 					<% if @home_winners[s.id] %>
@@ -50,7 +70,8 @@
 			</div>
 		</div>
 		<div class="ribbon-box">
-			<div class="location-time"><%= "#{s.date.strftime("%B %e, %G - %l:%M %p")} - #{s.home_season.school.location}" %></div>
+			<% location = s.home_season_id != 0 ? s.home_season.school.location : "Unknown" %>
+			<div class="location-time"><%= "#{s.date.strftime("%B %e, %G - %l:%M %p")} - #{location}" %></div>
 			<div class="period-display"><%= link_to @period_displays[s.id], :controller => :events, :action => :index, :id => s.id, :season_id => @season.id %></div>
 		</div>
 	</div>
