@@ -1,0 +1,23 @@
+<h2><%= @school.name %></h2>
+<% if @school.sports.count > 0 %>
+	<h3>Teams</h3>
+	<ul>
+		<% @sports.each do |s| %>
+			<li><%= link_to s.to_string, :controller => :seasons, :action => :list, :school_id => @school.id, :sport_id => s.id %></li>
+		<% end %>
+	</ul>
+<% else %>
+	<h3>No Teams</h3>
+<% end %>
+
+<% if logged_in? && (current_user.role == 0 || current_user.school_id == @school.id) %>
+	<div class="create-model">
+		<h3>Create Team</h3>
+		<div class="form-box">
+			<%= form_for(:team, :url => { :controller => :teams, :action => :create, :school_id => @school.id } ) do |t| %>
+				<%= t.collection_select :sport_id, @possible_sports, :id, :name, { :prompt => true }, { :class => 'form-select' } %>
+				<%= t.submit "Create", :class => 'create-button', :style => 'bottom : 2px;' %>
+			<% end %>
+		</div>
+	</div>
+<% end %>

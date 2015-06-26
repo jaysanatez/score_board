@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  home_score: 1
+  away_score: 1
+  status: 1
+  period: 1
+  date: 2015-05-23 23:56:41
+
+two:
+  home_score: 1
+  away_score: 1
+  status: 1
+  period: 1
+  date: 2015-05-23 23:56:41

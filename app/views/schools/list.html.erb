@@ -1,0 +1,31 @@
+<% if flash[:error] %>
+  <p class='error'> <%= flash[:error] %> </p>
+<% end %>
+
+<h2>Schools</h2>
+<ul>
+	<% @schools.each do |s| %>
+		<li><%= link_to s.name, :action => :index, :id => s.id %></li>
+	<% end %>
+</ul>
+
+<% if logged_in? && current_user.role == 0 %>
+	<div class="create-model">
+		<h3>Create School</h3>
+		<div class="form-box">
+			<%= form_for(:school, url: create_school_path) do |s| %>
+				<%= s.label :name %>
+				<%= s.text_field :name %> <br/>
+				<%= s.label :abbreviation %>
+				<%= s.text_field :abbreviation %> <br/>
+				<%= s.label :location %>
+				<%= s.text_field :location %> <br/>
+				<%= s.label :picture %>
+				<%= s.file_field :picture, :accept => 'image/png,image/jpg,image/jpeg' %> <br/>
+				<%= s.label :time_zone %>
+				<%= s.collection_select :tz_name, @time_zones, :name, :name, { :prompt => true }, { :class => 'form-select' } %>
+				<%= s.submit "Create", :class => 'create-button', :style => 'bottom: 3px;' %>
+			<% end %>
+		</div>
+	</div>
+<% end %>

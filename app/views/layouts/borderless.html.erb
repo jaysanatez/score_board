@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	  <title>ScoreBoard</title>
+	  <%= stylesheet_link_tag 'http://fonts.googleapis.com/css?family=Source+Sans+Pro' %>
+	  <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => true %>
+	  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+	  <%= csrf_meta_tags %>
+	</head>
+	<body>
+		<div class="fixed-nav">
+			<div class="title-box"><img src="<%= asset_path("site/scoreboard.png") %>"></div>
+			<div class="nav-box">
+				<% if logged_in? %>
+					<%= link_to "Log out", logout_path, method: "delete" %>
+				<% else %>
+					<%= link_to "Log in", login_path, method: "get" %>
+				<% end %>
+			</div>
+			<div id="nav-options">
+				<% if logged_in? %>
+					<div class="nav-box">
+						<%= link_to "Users", :controller => :users, :action => :index %>
+					</div>
+				<% end %>
+				<div class="nav-box">
+					<%= link_to "Sports", :controller => :sports, :action => :list %>
+				</div>
+				<div class="nav-box">
+					<%= link_to "Schools", :controller => :schools, :action => :list %>
+				</div>
+				<div class="nav-box">
+					<%= link_to "Search", :controller => :search, :action => :index %>
+				</div>
+				<div class="nav-box">
+					<%= link_to "Home", :controller => :home, :action => :index %>
+				</div>
+			</div>
+			<div class="nav-border"></div>
+		</div>
+
+		<div class="main-page">
+			<div class="param-container">
+				<% if @prms && @prms.values.count > 0 %>
+					<div class="param-title">Tags:</div>
+					<div class="param-box">
+						<% @prms.each do |k,v| %>
+							<div class="param-tag"><%= v %><%= link_to image_tag('site/x.png'), :controller => :parameters, :action => :redirect, :prms => @prms, :clear => k %></div>
+						<% end %>
+					</div>
+				<% end %>
+			</div>
+
+			<div class="body-content">
+				<%= yield %>
+			</div>
+		</div>
+
+		<div class="fixed-footer">
+			<div class="footer-border"></div>
+		</div>
+	</body>
+</html>

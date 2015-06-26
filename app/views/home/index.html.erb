@@ -1,0 +1,73 @@
+<div class="current-games body-border">
+	<div class="current-title">Scoreboard for <%= @current_date_string %></div>
+	<% if @games.count > 0 %>
+		<% @games.each do |e| %>
+			<div class="score-board-item">
+				<div class="sb-pic">
+					<img src="<%= asset_path e.away_season.school.picture %>"/> 
+				</div>
+				<div class="sb-container">
+					<div class="sb-info">
+						<div class="sb-name"><%= e.away_season.school.name %></div>
+						<div class="sb-score">
+							<% if e.status == 1 %>
+							<% case e.period
+							   	when 1 
+							   		status = "1Q"
+							   	when 2 
+							   		status = "2Q"
+							   	when 3 
+							   		status = "H"
+							   	when 4 
+							   		status = "3Q"
+							   	when 5 
+							   		status = "4Q"
+							   	when 6 
+							   		status = "OT"	
+							   end	%>
+								<%= link_to "#{e.away_score} - #{e.home_score} #{status}", :controller => :events, :action => :index, :id => e.id, :season_id => e.home_season_id %>
+							<% elsif e.status == 2 %>
+								<%= link_to "#{e.away_score} - #{e.home_score} #{ if e.period == 6 then "F/OT" else "F" end }", :controller => :events, :action => :index, :id => e.id, :season_id => e.home_season_id %>
+							<% elsif e.status == 0 %>
+								<%= link_to "#{@tz.utc_to_local(e.date).strftime("%l%P")} ET", :controller => :events, :action => :index, :id => e.id, :season_id => e.home_season_id %>
+							<% elsif e.status == 3 %>
+								<%= link_to "PPD", :controller => :events, :action => :index, :id => e.id, :season_id => e.home_season_id %>
+							<% end %>
+						</div>
+						<div class="sb-name"><%= e.home_season.school.name %></div>
+					</div>
+				</div>
+				<div class="sb-pic">
+					<img src="<%= asset_path e.home_season.school.picture %>"/>
+				</div>
+			</div>
+		<% end %>
+	<% else %>
+		<div class="no-games">No Games Today</div>
+	<% end %>
+</div>
+<div class="spacer"></div>
+<div class="info body-border">
+	<% if logged_in? %>
+		<% if current_user.role == 0 %>
+			<h2>Hello, <%= current_user.name %></h2>
+			<p>As a global administrator of this site, you have the following privileges:</p>
+			<ul>
+				<li>Access to add and remove content for all teams and sports</li>
+				<li>Access to add and remove other global admins and team admins</li>
+				<li>Access to override any actions by team admins</li>
+			</ul>
+		<% else %>
+			<h2>Hello, <%= current_user.name %></h2>
+			<p>As a team administrator of <%= link_to @school.name, :controller => :schools, :action => :index, :id => @school.id %>, you have the following privileges:</p>
+			<ul>
+				<li>- Access to add and remove content for all sports associated with <%= @school.name %></li>
+				<li>- Access to add and remove other team admins for <%= @school.name %></li>
+			</ul>
+		<% end %>
+	<% else %>
+		<h2>Hello, Guest</h2>
+		<p>As a guest to this site, you have the ability to view any content of all teams and sports, but you cannot edit it. If you need an account for your school, contact an existing school administrator.</p>
+	<% end %>
+	<br/>
+</div>

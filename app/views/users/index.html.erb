@@ -1,0 +1,71 @@
+<% stylesheet_link_tag "stylesheets/users.css" %>
+
+<h2>Users</h2>
+<% if global_admin? %>
+	<h3>Global Admin</h3>
+	<table id="users">
+		<thead>
+			<th>Name</th>
+			<th>Email</th>
+		</thead>
+		<tbody></tbody>
+			<% @global_admin.each do |a| %>
+				<tr>
+					<td><%= a.name %></td>
+					<td><%= a.email %></td>
+					<% if current_user.id != a.id %>
+						<td><%= link_to "Remove", :action => :delete, :user_id => a.id %></td>
+					<% end %>
+				</tr>
+			<% end %>
+		</tbody>
+	</table>
+<% end %>
+<% if logged_in? %>
+	<h3>Team Admin</h3>
+	<table id = "users">
+		<thead>
+			<th>Name</th>
+			<th>Email</th>
+			<th>Team</th>
+		</thead>
+		<tbody></tbody>
+			<% @team_admin.each do |a| %>
+				<tr>
+					<td><%= a.name %></td>
+					<td><%= a.email %></td>
+					<td><%= a.school.name %></td>
+					<% if current_user.id != a.id %>
+						<td><%= link_to "Remove", :action => :delete, :user_id => a.id %></td>
+					<% end %>
+				</tr>
+			<% end %>
+		</tbody>
+	</table>
+
+	<div class="create-model">
+		<h3>Create User</h3>
+		<div class="form-box">
+			<%= form_for(:user, :url => { :action => :create }) do |u| %>
+				<%= u.label :role %>
+				<%= u.select :role, @possible_roles, { }, { :class => 'form-select', :style => 'margin-bottom: 15px;'} %><br/>
+
+				<%= u.label :school %>
+				<%= u.collection_select :school, @possible_schools, :id, :name, { :prompt => false }, { :class => 'form-select', :style => 'margin-bottom: 10px;' } %> <br/>
+
+				<%= u.label :name %>
+				<%= u.text_field :name %> <br/>
+
+				<%= u.label :email %>
+				<%= u.text_field :email %> <br/>
+
+				<%= u.label :password %>
+				<%= u.text_field :password %>
+
+				<%= u.submit "Create", :class => 'create-button', :style => 'bottom: 0;' %>
+			<% end %>
+		</div>
+	</div>
+<% else %>
+	<p>You must be logged in to view users.</p>
+<% end %>

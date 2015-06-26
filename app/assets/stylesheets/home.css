@@ -1,0 +1,75 @@
+.current-games {
+	width: 100%;
+	text-align: center;
+}
+
+.current-title {
+	font-size: 20pt;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	border-bottom: 1px solid #888888; 
+}
+
+.spacer {
+	height: 50px;
+	width: 100px;
+	background-color: #D0D0D0;
+}
+
+.no-games {
+	font-size: 12pt;
+	padding-top: 10px;
+	padding-bottom: 10px;
+}
+
+.score-board-item {
+	display: table;
+	height: 50px;
+	width: 100%;
+	border-bottom: 1px solid #888888; 
+}
+
+.sb-pic {
+	display: table-cell;
+	height: 100%;
+	max-height: 100%;
+	width: 50px;
+	position: relative;
+}
+
+.sb-pic img {
+	max-height: 40px;
+	max-width: 40px;
+	position: absolute;
+	margin: auto;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+}
+
+.sb-container {
+	display: table-cell;
+	width: auto;
+	height: 100%;
+}
+
+.sb-info {
+	height: 100%;
+	width: 100%;
+	display: table;
+	table-layout: fixed;
+	font-size: 16pt
+}
+
+.sb-name {
+	width: auto;
+	display: table-cell;
+	vertical-align: middle;
+}
+
+.sb-score {
+	width: 100px;
+	display: table-cell;
+	vertical-align: middle;
+}

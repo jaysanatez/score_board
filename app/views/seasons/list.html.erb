@@ -1,0 +1,24 @@
+<h2><%= @team.to_string %></h2>
+<% if @seasons.count > 0 %>
+	<h3>Seasons</h3>
+	<ul>
+		<% @seasons.each do |s| %>
+			<li><%= link_to s.year, :action => :index, :id => s.id %></li>
+		<% end %>
+	</ul>
+<% else %>
+	<h3>No Seasons</h3>
+<% end %>
+
+<% if logged_in? && (current_user.role == 0 || current_user.school_id == @team.school.id) %>
+	<div class="create-model">
+		<h3>Create Season</h3>
+		<div class="form-box">
+			<%= form_for(:season, :url => { :action => :create, :team_id => @team.id }) do |s| %>
+				<%= s.label :year %>
+				<%= s.text_field :year %>
+				<%= s.submit "Create", :class => 'create-button', :style => 'bottom : 0;' %>
+			<% end %>
+		</div>
+	</div>
+<% end %>

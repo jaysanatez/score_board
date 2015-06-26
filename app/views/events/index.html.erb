@@ -1,0 +1,119 @@
+<%= form_for(:event, :url => { :controller => :events, :action => :update, :method => :put, :id => @event.id, :season_id => @source_season_id }, :html => { :id => 'update-event'} ) do |f| %> 
+	<div class="body-border">
+		<div id="score-board">
+			<div class="team-box">
+				<div class="team-pic">
+					<div class="img-box">
+						<img src="<%= asset_path @event.away_season.school.picture %>"/>
+					</div>
+				</div>
+				<div class="away-display team-info" data-display="<%= @away_display %>"><%= @event.away_season.school %></div>
+				<div class="team-score flip-container">
+					<div class="flip-card score">
+						<div id="away-score" class="front">
+							<%= if @event.status == 0 then "-" else @event.away_score end %>
+						</div>
+						<div class="back">
+							<%= f.text_field :away_score, :value => if @event.status == 0 then "0" else @event.away_score end %>
+						</div>
+					</div>
+				</div>
+				<div class="winner">
+					<% if @away_winner %>
+						<img src="<%= asset_path "site/winner.png" %>"/>
+					<% end %>
+				</div>
+			</div>
+
+			<div id="box-border"></div>
+
+			<div class="team-box">
+				<div class="team-pic">
+					<div class="img-box">
+						<img src="<%= asset_path @event.home_season.school.picture %>"/>
+					</div>
+				</div>
+				<div class="home-display team-info" data-display="<%= @home_display %>"><%= @event.home_season.school.name %></div>
+				<div class="team-score flip-container">
+					<div class="flip-card score">
+						<div id="home-score" class="front">
+							<%= if @event.status == 0 then "-" else @event.home_score end %>
+						</div>
+						<div class="back">
+							<%= f.text_field :home_score, :value => if @event.status == 0 then "0" else @event.home_score end %>
+						</div>
+					</div>
+				</div>
+				<div class="winner">
+					<% if @home_winner %>
+						<img src="<%= asset_path "site/winner.png" %>"/>
+					<% end %>
+				</div>
+			</div>
+		</div>
+		<div class="ribbon-box flip-container">
+			<div class="flip-card details">
+				<div class="front">
+					<div class="location-time"><%= "#{@date.strftime("%B %e, %G - %l:%M %p %Z")} - #{@event.home_season.school.location}" %></div>
+					<div class="period-display"><%= @period_display %></div>
+				</div>
+				<div class="back">
+					<div class="edit-datetime">
+						<%= f.datetime_select :date, { }, { :class => 'form-select' } %>
+					</div>
+					<div class="edit-teams">
+						<%= f.label "Swap Teams" %>
+						<%= check_box_tag :swap %>
+					</div>
+					<div class="edit-status">
+						<%= f.select :status, options_from_collection_for_select( @statuses, :id, :name, @event.status ), { }, { :class => 'form-select' } %>
+					</div>
+					<div class="edit-period">
+						<%= f.select :period, options_from_collection_for_select( @periods, :id, :name, @event.period ), { }, { :class => 'form-select' } %>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<% if school_admin?(@event.away_season.school_id) || school_admin?(@event.home_season.school_id) %>
+		<div class="spacer"></div>
+		<div class="options flip-container">
+			<div class="flip-card buttons">
+				<div class="front">
+					<div class="event-btn"><%= link_to image_tag('site/pencil.png'), '#', :id => 'edit-event' %></div>
+					<div class="event-btn second"><%= link_to image_tag('site/trash.png'), { :controller => :events, :action => :delete, :id => @event.id, :season_id => @source_season_id }, :method => :post %></div>
+					<div class="last-updt">Last Updated - <%= @updated_at.strftime("%l:%M %p %Z - %B %e, %G") %></div>
+				</div>
+				<div class="back">
+					<div class="event-btn"><%= link_to image_tag('site/save.png'), '#', :id => 'save-event', :onclick => "$('#update-event').submit()" %></div>
+				</div>
+			</div>
+		</div>
+	<% end %>
+
+	<% if @revisions.count > 0 %>
+		<div class="spacer"></div>
+		<div id="rev-title">History</div>
+		<table id="revisions">
+			<thead>
+				<th> <%= @event.away_season.school.abbreviation %> </th>
+				<th> <%= @event.home_season.school.abbreviation %> </th>
+				<th>Period</th>
+				<th>Status</th>
+				<th>Date</th>
+			</thead>
+			<tbody>
+				<% @revisions.each do |r| %>
+					<tr>
+						<td> <%= r.away_score %> </td>
+						<td> <%= r.home_score %> </td>
+						<td> <%= @periods.select { |p| p.id == r.period }[0].name %> </td>
+						<td> <%= @statuses[r.status].name %> </td>
+						<td> <%= @zones[r.id].strftime("%I:%M %p %Z %m/%d") %> </td>
+					</tr>
+				<% end %>
+			</tbody>
+		</table>
+	<% end %>
+<% end %>

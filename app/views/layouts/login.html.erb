@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	  <title>SportsClient</title>
+	  <%= stylesheet_link_tag 'http://fonts.googleapis.com/css?family=Source+Sans+Pro' %>
+	  <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => true %>
+	  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+	  <%= csrf_meta_tags %>
+	</head>
+	<body>
+		<div class="fixed-nav">
+			<div class="title-box"><img src="<%= asset_path("site/scoreboard.png") %>"></div>
+			<div class="nav-border"></div>
+		</div>
+
+		<div class="main-page">
+			<div class="body-content body-border">
+				<%= yield %>
+			</div>
+		</div>
+
+		<div class="fixed-footer">
+			<div class="footer-border"></div>
+		</div>
+	</body>
+</html>

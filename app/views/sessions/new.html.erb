@@ -1,0 +1,20 @@
+<% if flash[:error] %>
+  <p class='error'> <%= flash[:error] %> </p>
+<% end %>
+
+<div class="create-model">
+	<h3>Login</h3>
+	<div class="form-box">
+		<%= form_for(:session, url: login_path) do |s| %>
+			<%= s.label :email %>
+			<%= s.text_field :email %> <br/>
+
+			<%= s.label :password %>
+			<%= s.password_field :password %>
+
+			<%= s.submit "Log in", :class => 'create-button', :style => 'bottom: 5px;' %>
+		<% end %>
+
+		<%= link_to "Proceed as guest", { :controller => :home, :action => :index } , { :class => 'guest-link' } %>
+	</div>
+</div>

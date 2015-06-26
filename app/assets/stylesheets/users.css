@@ -1,0 +1,17 @@
+table#users {
+	margin: 10px 20px 10px 20px;
+	border: 1px solid #888888;
+	border-collapse: collapse;
+}
+
+table#users th {
+	padding: 4px;
+	background-color: #D0D0D0;
+	border: 1px solid #888888;
+}
+
+table#users td {
+	border: 1px solid #888888;
+	background-color: #FFFFFF;
+	padding: 4px;
+}

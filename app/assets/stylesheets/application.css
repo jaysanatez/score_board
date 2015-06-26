@@ -1,0 +1,263 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or any plugin's vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any styles
+ * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
+ * file per style scope.
+ *
+ *= require_tree .
+ *= require_self
+ */
+
+/* global stlyes*/
+
+* {
+	margin: 0;
+	padding: 0;
+	color: #444444;
+	font-family: 'Source Sans Pro', sans-serif;
+}
+
+body {
+	background-color: #D0D0D0;
+}
+
+/* header and footer */
+
+.fixed-nav {
+	width: 100%;
+	height: 50px;
+	position: fixed;
+	background-color: #F0F0F0;
+	top: 0;
+	left: 0;
+	right: 0;
+	z-index: 9999;
+}
+
+#nav-options {
+	height: 100%;
+}
+
+.nav-border {
+	position: absolute;
+	height: 1px;
+	width: 100%;
+	background-color: #888888;
+	left: 0;
+	right: 0;
+	bottom: 0;
+}
+
+.fixed-footer {
+	width: 100%;
+	height: 20px;
+	position: fixed;
+	background-color: #F0F0F0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	z-index: 9999;
+}
+
+.footer-border {
+	position: absolute;
+	height: 1px;
+	width: 100%;
+	background-color: #888888;
+	left: 0;
+	right: 0;
+	top: 0;
+}
+
+.title-box {
+	float: left;
+	height: 100%;
+	width: 210px;
+	margin-left: 50px;
+}
+
+.title-box img {
+	margin-top: 5px;
+	height: 80%;
+	width: 100%;
+}
+
+.nav-box {
+	height: 100%;
+	width: 80px;
+	top: 0;
+	bottom: 0;
+	color: #888888;
+	text-align: center;
+	display: table;
+	float: right;
+	position: relative;
+	margin-right: 0;
+}
+
+.nav-box a {
+	vertical-align: middle;
+	position: relative;
+	display: table-cell;
+}
+
+.main-page {
+	position: relative;
+	top: 50px;
+}
+
+/* param container */
+
+.param-container {
+	display: table;
+	margin: 0 auto;
+	max-width: 100%;
+	width: 800px;
+	padding-top: 10px;
+}
+
+.param-title {
+	display: table-cell;
+	width: 60px;
+	text-align: center;
+}
+
+.param-box {
+	display: table-cell;
+	width: auto;
+}
+
+.param-tag {
+	background-color: #F0F0F0;
+	display: inline-table;
+	font-size: 10pt;
+	padding: 6px;
+	border: 1pt solid #888888;
+	border-radius: 6px;
+	margin-right: 6px;
+}
+
+.param-tag a img {
+	height: 7px;
+	margin-left: 6px;
+	vertical-align: top;
+}
+
+/* body content */
+
+.body-content {
+	margin: 0 auto;
+	margin-top: 10px;
+	margin-bottom: 30px; /* footer height + 10 */
+	width: 800px;
+	max-width: 100%;
+	background-color: #FFFFFF;
+}
+
+.body-border {
+	border: solid 1px #888888;
+}
+
+h2 {
+	margin-left: 20px;
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
+h3 {
+	margin-left: 25px;
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
+a {
+	color: #AA0000;
+	text-decoration: none;	
+}
+
+a:visited {
+	color: #AA0000;
+	text-decoration: none;
+}
+
+ul {
+	list-style-type: none;
+}
+
+li {
+	margin-left: 40px;
+	margin-bottom: 3px;
+}
+
+p {
+	margin-left: 20px;
+	margin-bottom: 10px;
+}
+
+/* model creation box */
+
+.create-model {
+	max-width: 100%;
+	border: 1px solid #888888;
+	margin: 20px;
+}
+
+.form-box {
+	max-width: 100%;
+	margin: 10px 25px 10px 25px;
+}
+
+form > label {
+	margin-right: 10px;
+}
+
+input[type=text], input[type=password] {
+	border: none;
+	border-bottom: 1px solid #888888;
+	font-size: 12pt;
+	padding-left: 10px;
+	margin-bottom: 10px;
+}
+
+input[type=submit].create-button {
+	background-color: #AA0000;
+	color: #FFFFFF;
+	font-size: 12pt;
+	padding: 6px 8px 6px 8px;
+	border: 1px solid #660000;
+	border-radius: 5px;
+	position: relative;
+	float: right;
+	margin-right: 10px;
+	margin-bottom: 10px;
+	bottom: 11px;
+	right: -5px;
+	cursor: pointer;
+}
+
+input[type=file] {
+	margin-bottom: 10px;
+}
+
+input[type=file]::-webkit-file-upload-button {
+	background-color: #FFFFFF;
+	border: 1px solid #888888;
+	border-radius: 5px;
+	height: 30px;
+}
+
+select.form-select {
+	height: 30px;
+	border: 1px solid #888888;
+	background-color: #FFFFFF;
+}
+
+.bottom-container {
+	padding-bottom: 1px;
+}

@@ -1,0 +1,40 @@
+<% stylesheet_link_tag "stylesheets/search.css" %>
+
+<div class="search-block">
+	<% if @param && @param != "" %>
+		<h2 class="search-header">Matches for "<%=@param%>"</h2>
+	<% else %>
+		<h2 class="search-header">Search</h2>
+	<% end %>
+
+	<div class="search-form">
+	<%= form_tag :action => :query do %>
+		<%= text_field_tag :query, "", :class => 'search-field' %>
+		<%= submit_tag "Search" %>
+	<% end %>
+	</div>
+</div>
+
+<% if @schools.count > 0%>
+	<h3>Schools</h3>
+	<ul>
+		<% @schools.each do |s| %>
+			<li><%= link_to s.name, :controller => :schools, :action => :index, :id => s.id %></li>
+		<% end %>
+	</ul>
+<% else %>
+	<h3>No Schools</h3>
+<% end %>
+
+<% if @sports.count > 0%>
+	<h3>Sports</h3>
+	<ul>
+		<% @sports.each do |s| %>
+			<li><%= link_to s.to_string, :controller => :sports, :action => :index, :id => s.id %></li>
+		<% end %>
+	</ul>
+<% else %>
+	<h3>No Sports</h3>
+<% end %>
+
+<br/>

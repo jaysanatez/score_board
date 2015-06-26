@@ -1,0 +1,273 @@
+.ribbon-box {
+	width: 100%;
+	height: 40px;
+	border-top: 1px solid #888888;
+	display: table; 
+}
+
+.location-time {
+	padding-left: 10px;
+	display: table-cell;
+	vertical-align: middle;
+	font-size: 16pt;
+}
+
+.period-display {
+	padding-right: 10px;
+	display: table-cell;
+	vertical-align: middle;
+	font-size: 16pt;
+	text-align: right;
+}
+
+.flip-card .edit-datetime {
+	display: table-cell;
+	vertical-align: middle;
+	text-align: left;
+	padding-left: 5px;
+}
+
+.flip-card .edit-teams {
+	display: table-cell;
+	vertical-align: middle;
+	text-align: left;
+	font-size: 16pt;
+}
+
+.flip-card .edit-status {
+	display: table-cell;
+	vertical-align: middle;
+	text-align: center;
+}
+
+.flip-card .edit-period {
+	display: table-cell;
+	vertical-align: middle;
+	text-align: right;
+	padding-right: 5px;
+}
+
+.score-board {
+	height: 251px;
+	width: 100%;
+}
+
+.team-box {
+	height: 125px;
+	width: 100%;
+	display: table;
+}
+
+.box-border {
+	height: 1px;
+	width: 100%;
+	background-color: #888888;
+	z-index: 9999;
+}
+
+.team-pic {
+	display: table-cell;
+	height: 100%;
+	width: 125px;
+}
+
+.team-pic .img-box {
+	position: relative;
+	height: 115px;
+	width: 115px;
+	margin: 5px;
+}
+
+.team-pic .img-box img {
+	position: relative;
+	max-height: 100%;
+	max-width: 100%;
+	top: 50%;
+	left: 50%;
+	transform: translateY(-50%) translateX(-50%);
+}
+
+.team-info {
+	display: table-cell;
+	height: 100%;
+	width: auto;
+	font-size: 48pt;
+	padding-left: 25px;
+	vertical-align: middle;
+}
+
+.team-score {
+	display: table-cell;
+	height: 100%;
+	width: 110px;
+	text-align: center;
+	vertical-align: middle;
+	font-size: 64pt;
+}
+
+.winner {
+	display: table-cell;
+	width: 15px;
+	vertical-align: middle;
+}
+
+.winner img {
+	width: 100%;
+	height: 30px;
+}
+
+.spacer {
+	height: 15px;
+	width: 100%;
+	background-color: #D0D0D0;
+}
+
+.options {
+	height: 50px;
+	width: 100%;
+	background-color: #D0D0D0;
+}
+
+.buttons {
+	height: 100%;
+	width: 100%;
+}
+
+.score {
+	height: 105px;
+	top: 10px;
+	width: 100%;
+}
+
+.details {
+	width: 100%;
+	height: 100%;
+}
+
+.event-btn {
+	height: 50px;
+	width: 50px;
+	background-color: #F0F0F0;
+	float: left;
+	margin-right: 10px;
+	border: 1px solid #888888;
+	border-radius: 10px;
+	text-align: center;
+}
+
+.event-btn a, .event-btn img {
+	height: 75%;
+	width: 75%;
+	margin-top: 5px;
+}
+
+.event-btn.second {
+	left: 60px;
+}
+
+.buttons .front, .buttons .back {
+	height: 52px;
+	width: 100%;
+	background-color: #D0D0D0;
+}
+
+.details .front, .details .back {
+	position: absolute;
+	display: table;
+	height: 100%;
+	width: 100%;
+	background-color: #FFFFFF;
+}
+
+.flip-card input[type=text] {
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	font-size: 64pt;
+	top: 0;
+	left: 0;
+	padding: 0;
+	margin: 0;
+	text-align: center;
+}
+
+/* flip animation */
+
+.flip-container {
+	position: relative;
+	perspective: 100000px;
+}
+
+.flip-card {
+	position: absolute;
+	transform-style: preserve-3d;
+	transition: transform 1s;
+}
+
+.flip-card.score div {
+	width: 100%;
+	height: 100%;
+	position: absolute;
+}
+
+.flip-card.buttons div {
+	position: absolute;
+}
+
+.flip-card div {
+	backface-visibility: hidden;
+	display: block;
+}
+
+.flip-card.details .front {
+	display: table;
+}
+
+.flip-card.details .front div {
+	display: table-cell;
+}
+
+.flip-card .back {
+	transform: rotateX(180deg);
+}
+
+.flip-card.flipped {
+	transform: rotateX(180deg);
+}
+
+.last-updt {
+	height: 100%;
+	float: right;
+	position: relative !important;
+}
+
+/* revisions styling */
+
+#rev-title {
+	width: 100%;
+	background-color: #D0D0D0;
+	padding: 15px;
+	padding-bottom: 5px;
+	font-size: 13pt;
+}
+
+table#revisions {
+	width: 100%;
+	background-color: #F0F0F0;
+	border: 1px solid #999999;
+	text-align: center;
+	border-collapse: collapse;
+}
+
+table#revisions th {
+	width: 20%;
+	padding: 10px;
+}
+
+table#revisions tr {
+	border-top: 1px solid #999999;
+}
+
+table#revisions tr td {
+	padding: 10px;
+}
