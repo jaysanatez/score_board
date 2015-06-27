@@ -1,16 +1,26 @@
 class EventsController < ApplicationController
 	def index
 	    @event = ScheduleEvent.find(params[:id])
-	    @event.home_season = Season.find(@event.home_season_id)
-	    @event.away_season = Season.find(@event.away_season_id)
-	    away_school = @event.away_season.school
-	    home_school = @event.home_season.school
-	    tz = ActiveSupport::TimeZone.new(home_school.tz_name)
+
+	    if @event.away_season_id != 0
+	    	@event.away_season = Season.find(@event.away_season_id)
+	    	away_school = @event.away_season.school
+	    	@away_display = "#{away_school.name};#{away_school.abbreviation}"
+	    else
+	    	@away_display = "#{@event.guest_name};#{@event.guest_name}"
+	    end
+
+	    if @event.home_season_id != 0
+	    	@event.home_season = Season.find(@event.home_season_id)
+	    	home_school = @event.home_season.school
+	    else
+	    	@away_display = "#{@event.guest_name};#{@event.guest_name}"
+	    end
+	    
+	    tz = ActiveSupport::TimeZone.new(home_school != nil ? home_school.tz_name : away_school.tz_name)
 	    @date = @event.date.in_time_zone(tz) # convert that date to home team's local time
 	    @updated_at = @event.updated_at.in_time_zone(tz)
-	    @away_display = "#{away_school.name};#{away_school.abbreviation}"
-	    @home_display = "#{home_school.name};#{home_school.abbreviation}"
-
+	    
 	    @away_winner = @event.status == 2 && @event.away_score > @event.home_score
 	    @home_winner = @event.status == 2 && @event.home_score > @event.away_score
 
@@ -55,7 +65,15 @@ class EventsController < ApplicationController
 	    @periods = [ SelectItem.new(1, "1st"), SelectItem.new(2, "2nd"), SelectItem.new(3, "Halftime"), SelectItem.new(4, "3rd"), SelectItem.new(5, "4th"), SelectItem.new(6, "Overtime") ]
 
 	    season = Season.find(@source_season_id)
-	    opp_name = if season.id == @event.home_season_id then @event.away_season.school.name else @event.home_season.school.name end
+
+	    if season.id == @event.home_season_id && @event.away_season_id != 0
+	    	opp_name = @event.away_season.school.name 
+	    elsif @event.home_season_id != 0
+	    	opp_name = @event.home_season.school.name 
+	    else
+	    	opp_name = @event.guest_name
+	    end
+	    
 	    @prms = { "school" => season.school.name, "sport" => season.sport.to_string, "year" => season.year, "opponent" => "vs. #{opp_name}" }
 	    render :layout => "borderless"
   	end
