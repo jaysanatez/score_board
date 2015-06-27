@@ -109,7 +109,7 @@ class EventsController < ApplicationController
 		p = params[:event]
 		if params[:id]
 			event = ScheduleEvent.find(params[:id])
-			hs = Season.find(event.home_season_id)
+			hs = Season.find(event.home_season_id == 0 ? event.away_season_id : event.home_season_id)
 			dt = DateTime.new(p["date(1i)"].to_i, p["date(2i)"].to_i, p["date(3i)"].to_i, p["date(4i)"].to_i, p["date(5i)"].to_i, 0)
 			dt = ActiveSupport::TimeZone.new(hs.school.tz_name).local_to_utc(dt)
 			
@@ -147,7 +147,7 @@ class EventsController < ApplicationController
 	    end
 
 	    if event
-	    	# event.destroy
+	    	event.destroy
 	    end
 
 	    redirect_to :controller => :seasons, :action => :index, :id => params[:season_id]

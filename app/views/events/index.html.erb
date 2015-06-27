@@ -97,7 +97,7 @@
 		</div>
 	</div>
 
-	<% if school_admin?(@event.away_season.school_id) || school_admin?(@event.home_season.school_id) %>
+	<% if (@event.away_season_id != 0 && school_admin?(@event.away_season.school_id)) || (@event.home_season_id != 0 && school_admin?(@event.home_season.school_id)) %>
 		<div class="spacer"></div>
 		<div class="options flip-container">
 			<div class="flip-card buttons">
@@ -118,8 +118,20 @@
 		<div id="rev-title">History</div>
 		<table id="revisions">
 			<thead>
-				<th> <%= @event.away_season.school.abbreviation %> </th>
-				<th> <%= @event.home_season.school.abbreviation %> </th>
+				<th> 
+					<% if @event.away_season_id %>
+						<%= @event.away_season.school.abbreviation %>
+					<% else %>
+						<%= @event.guest_name %>
+					<% end %> 
+				</th>
+				<th> 
+					<% if @event.home_season_id != 0 %>
+						<%= @event.home_season.school.abbreviation %> 
+					<% else %>
+						<%= @event.guest_name %>
+					<% end %> 
+				</th>
 				<th>Period</th>
 				<th>Status</th>
 				<th>Date</th>
