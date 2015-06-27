@@ -4,12 +4,23 @@
 		<% @games.each do |e| %>
 			<div class="score-board-item">
 				<div class="sb-pic">
-					<img src="<%= asset_path e.away_season.school.picture %>"/> 
+					<% if e.away_season_id != 0  %>
+						<img src="<%= asset_path e.away_season.school.picture %>"/> 
+					<% else %>
+						<img src="<%= asset_path "guest.png"%>">
+					<% end %>
 				</div>
 				<div class="sb-container">
 					<div class="sb-info">
-						<div class="sb-name"><%= e.away_season.school.name %></div>
+						<div class="sb-name">
+							<% if e.away_season_id != 0 %>
+								<%= e.away_season.school.name %>
+							<% else %>
+								<%= e.guest_name %>
+							<% end %>
+						</div>
 						<div class="sb-score">
+							<% src = e.home_season_id == 0 ? e.away_season_id : e.home_season_id %>
 							<% if e.status == 1 %>
 							<% case e.period
 							   	when 1 
@@ -25,20 +36,30 @@
 							   	when 6 
 							   		status = "OT"	
 							   end	%>
-								<%= link_to "#{e.away_score} - #{e.home_score} #{status}", :controller => :events, :action => :index, :id => e.id, :season_id => e.home_season_id %>
+								<%= link_to "#{e.away_score} - #{e.home_score} #{status}", :controller => :events, :action => :index, :id => e.id, :season_id => src %>
 							<% elsif e.status == 2 %>
-								<%= link_to "#{e.away_score} - #{e.home_score} #{ if e.period == 6 then "F/OT" else "F" end }", :controller => :events, :action => :index, :id => e.id, :season_id => e.home_season_id %>
+								<%= link_to "#{e.away_score} - #{e.home_score} #{ if e.period == 6 then "F/OT" else "F" end }", :controller => :events, :action => :index, :id => e.id, :season_id => src %>
 							<% elsif e.status == 0 %>
-								<%= link_to "#{@tz.utc_to_local(e.date).strftime("%l%P")} ET", :controller => :events, :action => :index, :id => e.id, :season_id => e.home_season_id %>
+								<%= link_to "#{@tz.utc_to_local(e.date).strftime("%l%P")} ET", :controller => :events, :action => :index, :id => e.id, :season_id => src %>
 							<% elsif e.status == 3 %>
-								<%= link_to "PPD", :controller => :events, :action => :index, :id => e.id, :season_id => e.home_season_id %>
+								<%= link_to "PPD", :controller => :events, :action => :index, :id => e.id, :season_id => src %>
 							<% end %>
 						</div>
-						<div class="sb-name"><%= e.home_season.school.name %></div>
+						<div class="sb-name">
+							<% if e.home_season_id != 0 %>
+								<%= e.home_season.school.name %>
+							<% else %>
+								<%= e.guest_name %>
+							<% end %>
+						</div>
 					</div>
 				</div>
 				<div class="sb-pic">
-					<img src="<%= asset_path e.home_season.school.picture %>"/>
+					<% if e.home_season_id != 0 %>
+						<img src="<%= asset_path e.home_season.school.picture %>"/>
+					<% else %>
+						<img src="<%= asset_path "guest.png"%>">
+					<% end %>
 				</div>
 			</div>
 		<% end %>

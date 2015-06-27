@@ -24,12 +24,12 @@ class SeasonsController < ApplicationController
 
 
     @schedule_events.each do |s|
-  		if s.home_season_id == @season.id
-			s.home_season = @season
-			s.away_season = Season.find(s.away_season_id)  		
-  		else
-  			s.home_season = Season.find(s.home_season_id)
-  			s.away_season = @season
+  		if s.home_season_id != 0
+			  s.home_season = Season.find(s.home_season_id)  		
+      end
+
+      if s.away_season_id != 0
+  			s.away_season = Season.find(s.away_season_id)
   		end
 
       s.date = ActiveSupport::TimeZone.new(@season.school.tz_name).utc_to_local(s.date) # convert that date to local time
@@ -64,8 +64,19 @@ class SeasonsController < ApplicationController
       end
 
       @period_displays[s.id] = period_display
-      @away_display_data[s.id] = "#{s.away_season.school.name};#{s.away_season.school.abbreviation}"
-      @home_display_data[s.id] = "#{s.home_season.school.name};#{s.home_season.school.abbreviation}"
+      
+      if s.away_season_id != 0 
+        @away_display_data[s.id] = "#{s.away_season.school.name};#{s.away_season.school.abbreviation}"
+      else
+        @away_display_data[s.id] = "#{s.guest_name};#{s.guest_name}"
+      end
+
+      if s.home_season_id != 0
+        @home_display_data[s.id] = "#{s.home_season.school.name};#{s.home_season.school.abbreviation}"
+      else
+        @home_display_data[s.id] = "#{s.guest_name};#{s.guest_name}"
+      end
+      
       @away_winners[s.id] = s.status == 2 && s.home_score < s.away_score
       @home_winners[s.id] = s.status == 2 && s.home_score > s.away_score
 

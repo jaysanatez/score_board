@@ -10,8 +10,12 @@ class HomeController < ApplicationController
 		@games = ScheduleEvent.all.select { |e| @tz.utc_to_local(e.date).to_date == DateTime.now.to_date }.sort_by { |e| e.date }
 
 		@games.each do |g|
-			g.home_season = Season.find(g.home_season_id)
-	    	g.away_season = Season.find(g.away_season_id)
+			if g.home_season_id != 0 
+				g.home_season = Season.find(g.home_season_id)
+			end
+			if g.away_season_id != 0
+	    		g.away_season = Season.find(g.away_season_id)
+	    	end
 		end
 
 		render :layout => 'borderless'
