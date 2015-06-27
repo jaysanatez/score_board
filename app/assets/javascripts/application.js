@@ -76,6 +76,11 @@ $(document).ready(function() {
 		$('.flip-card').toggleClass('flipped');
 		$('.winner').css('visibility', 'visible');
 	});
+
+	$('#undo-flip').click(function() {
+		$('.flip-card').toggleClass('flipped');
+		$('.winner').css('visibility', 'visible');
+	});
 });
 
 function showOrHideNavOptions() {
