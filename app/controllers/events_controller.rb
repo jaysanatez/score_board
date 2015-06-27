@@ -13,6 +13,7 @@ class EventsController < ApplicationController
 	    if @event.home_season_id != 0
 	    	@event.home_season = Season.find(@event.home_season_id)
 	    	home_school = @event.home_season.school
+	    	@home_display = "#{home_school.name};#{home_school.abbreviation}"
 	    else
 	    	@home_display = "#{@event.guest_name};#{@event.guest_name}"
 	    end
@@ -82,6 +83,21 @@ class EventsController < ApplicationController
 	    if school_admin?(params[:school_id])
 	    	d = params[:event]
 	    	osi = d[:opp_season_id]
+	    	gn = d[:guest_name]
+
+	    	if gn != nil
+	    		school_match = School.find_by(:name => gn)
+
+	    		if school_match != nil
+	    			orig_season = Season.find(params[:season_id])
+		    		season_match = Season.find_by(:school_id => school_match.id, :year => orig_season.year)
+
+		    		if season_match != nil
+		    			osi = season_match.id
+		    		end
+		    	end
+	    	end
+
 	      	if osi == nil || osi == ""
 	      		b = d[:home] == "1"
 	      		home_id = if b then params[:season_id] else 0 end
@@ -89,7 +105,6 @@ class EventsController < ApplicationController
 	      		dt = DateTime.new(d["date(1i)"].to_i, d["date(2i)"].to_i, d["date(3i)"].to_i, d["date(4i)"].to_i, d["date(5i)"].to_i, 0)
 	      		s = School.find(params[:school_id])
 	      		dt = ActiveSupport::TimeZone.new(s.tz_name).local_to_utc(dt)
-	      		gn = d[:guest_name]
 	      		ScheduleEvent.create(:home_season_id => home_id, :away_season_id => away_id, :home_score => 0, :away_score => 0, :status => 0, :period => 0, :date => dt, :guest_name => gn)
 	      	else
 	      		b = d[:home] == "1"
