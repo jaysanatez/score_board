@@ -14,7 +14,7 @@ class EventsController < ApplicationController
 	    	@event.home_season = Season.find(@event.home_season_id)
 	    	home_school = @event.home_season.school
 	    else
-	    	@away_display = "#{@event.guest_name};#{@event.guest_name}"
+	    	@home_display = "#{@event.guest_name};#{@event.guest_name}"
 	    end
 	    
 	    tz = ActiveSupport::TimeZone.new(home_school != nil ? home_school.tz_name : away_school.tz_name)

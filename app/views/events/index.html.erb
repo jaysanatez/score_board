@@ -4,10 +4,20 @@
 			<div class="team-box">
 				<div class="team-pic">
 					<div class="img-box">
-						<img src="<%= asset_path @event.away_season.school.picture %>"/>
+						<% if @event.away_season_id != 0 %>
+							<img src="<%= asset_path @event.away_season.school.picture %>"/>
+						<% else %>
+							<img src="<%= asset_path "guest.png" %>"/>
+						<% end %>
 					</div>
 				</div>
-				<div class="away-display team-info" data-display="<%= @away_display %>"><%= @event.away_season.school %></div>
+				<div class="away-display team-info" data-display="<%= @away_display %>">
+					<% if @event.away_season_id != 0 %>
+						<%= @event.away_season.school.name %>
+					<% else %>
+						<%= @event.guest_name %>
+					<% end %>
+				</div>
 				<div class="team-score flip-container">
 					<div class="flip-card score">
 						<div id="away-score" class="front">
@@ -30,10 +40,20 @@
 			<div class="team-box">
 				<div class="team-pic">
 					<div class="img-box">
-						<img src="<%= asset_path @event.home_season.school.picture %>"/>
+						<% if @event.home_season_id != 0 %>
+							<img src="<%= asset_path @event.home_season.school.picture %>"/>
+						<% else %>
+							<img src="<%= asset_path "guest.png" %>"/>
+						<% end %>
 					</div>
 				</div>
-				<div class="home-display team-info" data-display="<%= @home_display %>"><%= @event.home_season.school.name %></div>
+				<div class="home-display team-info" data-display="<%= @home_display %>">
+					<% if @event.home_season_id != 0 %>
+						<%= @event.home_season.school.name %>
+					<% else %>
+						<%= @event.guest_name %>
+					<% end %>
+				</div>
 				<div class="team-score flip-container">
 					<div class="flip-card score">
 						<div id="home-score" class="front">
@@ -54,7 +74,8 @@
 		<div class="ribbon-box flip-container">
 			<div class="flip-card details">
 				<div class="front">
-					<div class="location-time"><%= "#{@date.strftime("%B %e, %G - %l:%M %p %Z")} - #{@event.home_season.school.location}" %></div>
+					<% location = @event.home_season_id != 0 ? @event.home_season.school.location : "Unknown" %>
+					<div class="location-time"><%= "#{@event.date.strftime("%B %e, %G - %l:%M %p")} - #{location}" %></div>
 					<div class="period-display"><%= @period_display %></div>
 				</div>
 				<div class="back">
