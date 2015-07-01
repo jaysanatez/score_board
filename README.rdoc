@@ -1,3 +1,3 @@
 == README
 
-This README explains things.
+Rails 4 application to centralize all scores for team sporting games. Demo will be added shortly.
