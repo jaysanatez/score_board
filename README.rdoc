@@ -1,3 +1,5 @@
 == README
 
-Rails 4 application to centralize all scores for team sporting games. Demo will be added shortly.
+Rails 4 application to centralize all scores for team sporting games.
+Check out https://true-parliment-5259.herokuapp.com/ for more details.
+Site may have incomplete staged data for the time being.
