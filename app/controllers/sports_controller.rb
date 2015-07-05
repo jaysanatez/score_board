@@ -12,8 +12,13 @@ class SportsController < ApplicationController
   end
 
   def create
-	  if params[:sport][:name] && params[:sport][:male] && global_admin?
-  		Sport.create(:name => params[:sport][:name], :male => params[:sport][:male])
+	  if params[:sport][:name] && params[:sport][:male] != nil && global_admin?
+      name = params[:sport][:name]
+      male = Integer(params[:sport][:male]) == 1
+
+      if Sport.where(:name => name, :male => male).count == 0
+  		  Sport.create(:name => name, :male => male)
+      end
   	end
 
   	redirect_to :action => :list

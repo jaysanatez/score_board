@@ -12,7 +12,7 @@
 			<%= form_for(:sport, url: create_sport_path) do |s| %>
 				<%= s.label :name %>
 				<%= s.text_field :name %> <br/>
-				<%= s.label :male %>
+				<%= s.label :male, "Men's" %>
 				<%= s.check_box :male, :checked => true %>
 				<%= s.submit "Create", :class => 'create-button' %>
 			<% end %>
