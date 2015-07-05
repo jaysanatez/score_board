@@ -5,7 +5,7 @@
 				<div class="team-pic">
 					<div class="img-box">
 						<% if @event.away_season_id != 0 %>
-							<img src="<%= asset_path @event.away_season.school.picture %>"/>
+							<%= link_to image_tag(asset_path @event.away_season.school.picture), { :controller => :seasons, :action => :index, :id => @event.away_season_id } %>
 						<% else %>
 							<img src="<%= asset_path "guest.png" %>"/>
 						<% end %>
@@ -41,7 +41,7 @@
 				<div class="team-pic">
 					<div class="img-box">
 						<% if @event.home_season_id != 0 %>
-							<img src="<%= asset_path @event.home_season.school.picture %>"/>
+							<%= link_to image_tag(asset_path @event.home_season.school.picture), { :controller => :seasons, :action => :index, :id => @event.home_season_id } %>
 						<% else %>
 							<img src="<%= asset_path "guest.png" %>"/>
 						<% end %>
