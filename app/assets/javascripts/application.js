@@ -25,11 +25,6 @@ $(document).ready(function() {
 	});
 
 	$('#save-event').click(function() {
-		
-		if($("#swap").is(':checked')) { // reload to switch teams
-			location.reload();
-		}
-
 		$('#away-score').text($('#event_away_score').val());
 		$('#home-score').text($('#event_home_score').val());
 		
@@ -66,15 +61,12 @@ $(document).ready(function() {
 			pd = "Postponed";
 		}
 
-		var old_pd = $('.period-display').text();
-		if (s == '2' && old_pd != 'Final' && old_pd != 'Final/OT') {
-			location.reload();
-		}
-
 		$('.period-display').text(pd);
 
 		$('.flip-card').toggleClass('flipped');
 		$('.winner').css('visibility', 'visible');
+
+		$('#update-event').submit();
 	});
 
 	$('#undo-flip').click(function() {
